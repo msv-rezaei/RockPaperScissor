@@ -9,7 +9,7 @@ public class ScorePanel : MonoBehaviour
     private void Start() =>
         GameManager.instance.OnTurnComplete += UpdateScoreTexts;
 
-    void UpdateScoreTexts(int playerScore, int comScore)
+    void UpdateScoreTexts(int playerScore, int comScore, int status)
     {
         playerScoreText.text = playerScore.ToString(); 
         comScoreText.text = comScore.ToString();

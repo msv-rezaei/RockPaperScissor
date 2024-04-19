@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,7 +6,7 @@ public class GameManager : MonoBehaviour
     public Sprite[] rpsIcons;
     
     public Action<Sprite> OnComIconUpdate;
-    public Action<int, int> OnTurnComplete;
+    public Action<int, int, int> OnTurnComplete;
 
     int playerIndex = 0; 
     int comIndex = 0;
@@ -38,11 +37,18 @@ public class GameManager : MonoBehaviour
         comIndex = UnityEngine.Random.Range(0, 3);
         OnComIconUpdate.Invoke(rpsIcons[comIndex]);
 
-        if ((comIndex == playerIndex+1) || (comIndex == playerIndex-2))
-            comScore++; 
-        else if(comIndex != playerIndex)
+        int status = 0;
+        if ((comIndex == playerIndex + 1) || (comIndex == playerIndex - 2))
+        {
+            comScore++;
+            status = -1;
+        }
+        else if (comIndex != playerIndex)
+        {
             playerScore++;
+            status = 1; 
+        }
 
-        OnTurnComplete.Invoke(playerScore, comScore);
+        OnTurnComplete.Invoke(playerScore, comScore, status);
     }
 }
