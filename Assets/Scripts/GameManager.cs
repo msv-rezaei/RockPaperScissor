@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     
     public Action<Sprite> OnComIconUpdate;
     public Action<int, int, int> OnTurnComplete;
+    public Action OnReset;
 
     int playerIndex = 0; 
     int comIndex = 0;
@@ -50,5 +51,14 @@ public class GameManager : MonoBehaviour
         }
 
         OnTurnComplete.Invoke(playerScore, comScore, status);
+    }
+
+    public void Reset()
+    {
+        OnReset.Invoke();
+        playerScore = comScore = 0;
+        playerIndex = comIndex = 0;
+
+        OnComIconUpdate.Invoke(rpsIcons[comIndex]);
     }
 }

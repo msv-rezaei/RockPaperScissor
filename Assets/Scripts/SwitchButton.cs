@@ -6,6 +6,9 @@ public class SwitchButton : MonoBehaviour
     int index = 0; 
     Image _image;
 
+    private void OnEnable() =>
+        GameManager.instance.OnReset += () => _image.sprite = GameManager.instance.rpsIcons[0];
+
     private void Awake() =>
         _image = GetComponent<Image>();
 
