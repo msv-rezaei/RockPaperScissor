@@ -5,9 +5,11 @@ public class GameManager : MonoBehaviour
 {
     public Sprite[] rpsIcons;
     
-    public Action<Sprite> OnComIconUpdate;
-    public Action<int, int, int> OnTurnComplete;
-    public Action OnReset;
+    // Events
+    public Action<int> OnComUpdate;                 // Invoked when comIndex is changed
+    public Action<int> OnPlayerUpdate;              // Invoked when playerIndex is changed
+    public Action<int, int, int> OnTurnComplete;    // Invoked when a turn is completed
+    public Action OnReset;                          // Invoked when a new game is started
 
     int playerIndex = 0; 
     int comIndex = 0;
@@ -31,12 +33,14 @@ public class GameManager : MonoBehaviour
             throw new ArgumentOutOfRangeException("Player index must be an integer in range of [0, 2]");
 
         playerIndex = index;
+
+        OnPlayerUpdate.Invoke(playerIndex);
     }
 
     public void Submit()
     {
         comIndex = UnityEngine.Random.Range(0, 3);
-        OnComIconUpdate.Invoke(rpsIcons[comIndex]);
+        OnComUpdate.Invoke(comIndex);
 
         int status = 0;
         if ((comIndex == playerIndex + 1) || (comIndex == playerIndex - 2))
@@ -59,6 +63,6 @@ public class GameManager : MonoBehaviour
         playerScore = comScore = 0;
         playerIndex = comIndex = 0;
 
-        OnComIconUpdate.Invoke(rpsIcons[comIndex]);
+        OnComUpdate.Invoke(comIndex);
     }
 }

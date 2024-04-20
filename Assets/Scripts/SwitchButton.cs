@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class SwitchButton : MonoBehaviour
 {
-    int index = 0; 
+    int index = 0;
     Image _image;
 
     private void OnEnable() =>

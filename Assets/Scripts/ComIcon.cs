@@ -9,8 +9,8 @@ public class ComIcon : MonoBehaviour
         _image = GetComponent<Image>();
 
     private void Start() =>
-        GameManager.instance.OnComIconUpdate += UpdateIcon; 
+        GameManager.instance.OnComUpdate += UpdateIcon; 
 
-    void UpdateIcon(Sprite newIcon) => 
-        _image.sprite = newIcon;
+    void UpdateIcon(int index) => 
+        _image.sprite = GameManager.instance.rpsIcons[index];
 }
